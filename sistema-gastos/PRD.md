@@ -498,3 +498,37 @@ The call script that closes these questions while presenting v0 is [validation-c
 - Partial dispatches are recorded without workarounds, and storage on leftovers is billed.
 - No rate is typed in by hand unless overridden on purpose. Every amount shows its rate source.
 - Staff in Iquique and Santa Cruz work without AnyDesk.
+
+---
+
+## 17. AI features (added in v0)
+
+Two AI features were built into v0. Both follow one rule: **the AI prepares, a person saves.** Nothing the AI does is stored until someone checks it on screen and presses the button.
+
+### 17.1 Reading a BL from a scan
+
+| ID | Requirement | Pri |
+|---|---|---|
+| AI-1 | Take a photo or PDF of a bill of lading and pre-fill the new-BL form (number, date, vessel, ports, cargo, containers). Nothing is saved until the person checks the form. | S |
+| AI-2 | Work for free first: read a digital PDF's own text layer, or run OCR (Tesseract) on photos, then find fields with rules (container numbers checked by their ISO 6346 check digit, B/L number, dates, vessel). | M |
+| AI-3 | When an Anthropic API key is set, Claude also reads what rules can't (shipper, consignee, cargo description) and returns structured fields. | C |
+
+**Why this design:** most fields on a BL have a fixed shape, so rules handle them at no cost and without sending documents anywhere. The model is an upgrade the client can switch on, not a dependency.
+
+### 17.2 The assistant ("Misa")
+
+A chat in the lower-right corner, in Spanish, shown with the face of the person who supports the team, so staff ask it for help the way they'd ask that person.
+
+| ID | Requirement | Pri |
+|---|---|---|
+| AI-4 | Answer questions from live data through tools: search BLs and clients, open a BL with all its costs and departures, list what needs attention, today's exchange rates. | S |
+| AI-5 | Act on request by **filling the real form on screen** (BLs, containers, port costs, unloading and loading, departures, dispatch costs, freight, clients, rules). The person reviews and saves ("bridge mode"). | S |
+| AI-6 | Never invent ids, amounts, dates or names. If something is missing or ambiguous (several BLs could match), ask first. | M |
+| AI-7 | Deleting: say exactly what will be deleted and point to the delete button; the person presses and confirms. | M |
+| AI-8 | Off unless an API key is set. Usage is billed per conversation to the client's own account. | M |
+
+**How it's built:** Claude (Opus) with 20 tools, a fixed system prompt kept in the prompt cache (the date, user and current page go in the user's turn), and streamed replies. "This BL" or "here" refers to the page that's open.
+
+### 17.3 What's offered next
+
+The proposal to the client (see the IQQ Storage brand deck) includes natural-language queries and **MCP access**, so the company can connect its own AI tools to its data. Monthly model usage is billed separately.

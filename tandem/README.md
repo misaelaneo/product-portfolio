@@ -46,6 +46,10 @@ Selling to a school district is a trust sale, so the go-to-market is built aroun
 - **Let the board set the bar:** the board sets the adoption targets. Accuracy (zero mismatches with Skyward) and zero privacy incidents are fixed.
 - **Expand from proof:** results go to the board in March, and the board decides what happens next.
 
+## AI: a deliberate "not yet"
+
+Tandem leaves AI out of the pilot on purpose. Student data from minors is the most regulated data a school holds, so the plan commits to **no AI features in the pilot and no training of AI or machine-learning models on student data, ever**. The pilot has to earn trust first; AI can be proposed later, with the district's counsel, once the compliance gate has been passed.
+
 ## Documents
 
 - [Implementation and compliance plan](implementation-and-compliance-plan.md): current systems, integration plan, a compliance matrix (FERPA, COPPA, PPRA, IDEA, ADA, Texas law), security program, privacy by design, accessibility, pilot timeline, risks and the decisions requested

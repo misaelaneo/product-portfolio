@@ -44,6 +44,14 @@ For every shipment (Bill of Lading), the company tracks what it costs them and w
 | ![Exchange rates](images/v0-exchange-rates.png) | <img src="images/v0-mobile-port-cost.png" width="280" alt="Port cost form on a phone"> |
 | Pulled daily from the central banks, with trend and date; each shipment keeps the rate it used | Costs entered at the port as they happen, replacing the late spreadsheet |
 
+## AI features
+
+Both follow one rule: **the AI prepares, a person saves.** ([PRD §17](PRD.md#17-ai-features-added-in-v0))
+
+- **Reading a BL from a scan.** A photo or PDF of a bill of lading pre-fills the new-BL form. It runs free first (the PDF's text layer or OCR, then rules that validate container numbers by their check digit), and Claude reads the rest (shipper, consignee, cargo) when the client switches it on.
+- **An in-app assistant.** A Spanish chat built on Claude with 20 tools. It answers from live data ("what's waiting to be billed?") and, when asked to record something, fills the real form on screen for the person to review and save. It never invents ids or amounts, asks when a request is ambiguous, and only points to the delete button.
+- **Next:** the proposal to the client includes MCP access, so they can connect their own AI tools to their data.
+
 ## Product choices worth noting
 
 - **Follow the shipment, not the cost categories.** Every screen answers "where is this shipment and what is missing?"

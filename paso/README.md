@@ -43,6 +43,17 @@ The spec planned the **WhatsApp Business Cloud API** from day one. I built it an
 - **Trade-off:** sending a notification took one tap instead of zero, and photos dropped straight into the chat weren't captured automatically.
 - **What happened next:** the API code stayed in the repo, so once the product proved its value, automated WhatsApp notifications and reminders were an upgrade, not a rewrite. Today they go out from a consenting staff member's WhatsApp Business number.
 
+## AI: Paso inside Claude (MCP server)
+
+I built Paso an **MCP server**, so a team can run Paso from Claude: "set up a Mexico import workflow with a hazmat fork", "what's waiting on clients this week?", "approve the packing list for MX-2417". ([PRD addendum](PRD.md#addendum-ai-and-mcp-built-after-v1))
+
+- **Two modes.** *Headless* works on the data alone. *Bridge* drives the person's open Paso window: changes appear as they happen, and Claude can see which page they're on and open one for them.
+- **The whole product as tools:** workflows, stages and steps, clients and their links, jobs, and the amounts recorded on steps.
+- **Safe by design:** OAuth sign-in ("paste the address, press Connect, allow it"), every tool scoped to what that person may see, and read-only tools marked as such.
+- **Why MCP instead of a built-in chatbot:** owners already ask an assistant first. MCP meets them there, with no Paso-specific AI to build or maintain.
+
+Other assistive features: a document scanner that turns photos into clean multi-page PDFs, and a **Listen** button and voice messages for clients who don't read well.
+
 ## Designing conditional workflows
 
 Real paperwork forks: hazardous cargo needs a permit, motorcycles need different forms than trucks. I explored three ways to add conditions right on the workflow map (a plus on the line, lanes per answer, and answer "wires"), then combined lanes and wires.

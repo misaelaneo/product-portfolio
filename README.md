@@ -23,6 +23,16 @@ The source code of client projects is private. This repo holds the **product wor
 - **Go-to-market:** [Paso GTM](paso/GTM.md) (B2B, from one customer to a vertical), [Tabline GTM](tabline/GTM.md) (platform gates and free distribution), and the [Tandem pilot plan](tandem/implementation-and-compliance-plan.md) (selling into a regulated school district).
 - **Brand and design:** [IQQ Storage](iqq-storage-brand/), [Paso](paso/#naming-and-brand) and [Gestión de Trámites](gestion-tramites/#brand-options).
 
+## AI features and MCP
+
+| Project | What I built | Where it's specified |
+|---|---|---|
+| **Paso** | An **MCP server** so teams can run Paso from Claude, in headless mode or "bridge" mode, where Claude drives the open window. OAuth sign-in, per-person scopes | [PRD addendum](paso/PRD.md#addendum-ai-and-mcp-built-after-v1) · [case study](paso/#ai-paso-inside-claude-mcp-server) |
+| **Sistema Gastos** | An in-app **Claude assistant** with 20 tools that answers from live data and fills real forms for a person to save, plus **AI reading of scanned bills of lading** (free OCR and rules first, Claude when switched on) | [PRD §17](sistema-gastos/PRD.md#17-ai-features-added-in-v0) · [case study](sistema-gastos/#ai-features) |
+| **Tandem** | A deliberate decision to keep AI **out** of a pilot with minors' school data, and never train models on it | [Case study](tandem/#ai-a-deliberate-not-yet) · [compliance plan](tandem/implementation-and-compliance-plan.md#privacy-by-design) |
+
+The common rule: **the AI prepares, a person confirms.** Assistants never save, delete or invent data on their own.
+
 ## How I work
 
 1. **Discover.** Record a working session with the people who do the job, and pull out the problems, the workflow and the edge cases ([example](sistema-gastos/discovery-findings.md)).

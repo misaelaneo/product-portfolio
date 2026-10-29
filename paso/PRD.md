@@ -116,3 +116,27 @@ The diagram-based workflow builder and other UI get manual verification during d
 - Possible admin role distinctions (e.g. owner vs. staff permissions) if needed later
 - Supabase Pro upgrade (backups) once real client documents are at stake
 - Detailed visual/UX design of the workflow diagram builder (next step, via `impeccable`)
+
+---
+
+## Addendum: AI and MCP (built after v1)
+
+This spec predates the AI work. These features were added once v1 was in use.
+
+### Paso as an MCP server
+
+Paso runs an **MCP server**, so an AI assistant (Claude, mainly) can work in Paso for the person whose key it holds.
+
+- **Two modes, one set of tools.**
+  - *Headless:* the data alone. Nothing needs to be open. The assistant builds workflows, adds clients and moves jobs along, and the app shows the result next time anyone looks.
+  - *Bridge:* the same tools, connected to the person's open Paso window. Every change shows there as it happens, the assistant can see which page they're on (`ui_status`), and it can open a page for them (`ui_show`).
+- **Tools cover the whole product:** an overview of what's waiting; workflows, stages and steps (create, change, move, duplicate); clients and their link access; jobs (start, update a step, approve or send back); and amounts recorded on steps, with money totals per currency.
+- **Sign-in:** OAuth, so connecting from Claude is "paste the address, press Connect, allow it". Personal keys work too. Every tool is scoped to what that person may see. Read-only tools are marked as read-only, and acting on a job reaches the client exactly as it does from the app.
+- **Hosting:** the server is created afresh for every request (a stateless transport), which suits serverless hosting.
+
+**Why:** owners of small teams increasingly ask an assistant first. With MCP, "set up a workflow for a Mexico import with a hazmat fork" or "what's waiting on clients this week?" works from Claude, with no Paso-specific AI to build or maintain.
+
+### Other assistive features
+
+- **Document scanner:** a photo comes back as a scan (page found, straightened, whitened), and several pages make one PDF.
+- **Listen:** a client's link page can be read aloud, for clients who don't read well, with a natural voice from a text-to-speech service. Updates can also be sent as voice messages.

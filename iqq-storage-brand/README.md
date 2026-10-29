@@ -47,6 +47,8 @@ The goal: a brand that looks equally solid on a shipping container, a business c
 |---|---|
 | ![Website](images/digital.jpg) | ![Icon](images/inicio.jpg) |
 
+The proposal also includes AI features: natural-language questions about the operation, and MCP access so the company can connect its own AI tools to its data.
+
 *The digital screens in the deck are illustrative: they show how the brand applies, not the final product.*
 
 ## Closing the pitch
