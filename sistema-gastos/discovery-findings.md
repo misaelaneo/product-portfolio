@@ -132,7 +132,7 @@ Contenedor · U.Medida (e.g. SACO) · Cant. ingreso · Saldo · Margen (USD per 
 - [ ] The Fletes screen labels the BOB rate "Paridad Dólar". Just a mislabel?
 - [ ] Screens not shown yet: Demurrage, Impuestos Bolivia, Gastos ingreso Bolivia, Kardex contenedor, O.Despacho, Informes menu, Mantención menu, Clientes/Proveedores/Centro de costo.
 - [ ] **Installation files / source:** the Ops Lead will ask the Owner how it was installed and whether there is a backup `[23:16–24:04]`. Also ask whether the original vendor can provide the source code.
-- [ ] Get a copy of the program folder and its `.dbf` data (with the program closed). Run [tools/app-inventory.ps1](../tools/app-inventory.ps1) on the host laptop.
+- [ ] Get a copy of the program folder and its `.dbf` data (with the program closed). Run tools/app-inventory.ps1 (a PowerShell script, not included) on the host laptop.
 
 ---
 

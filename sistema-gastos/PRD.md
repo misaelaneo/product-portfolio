@@ -38,6 +38,23 @@ Today this runs on **Sistema Gastos**, a Visual FoxPro desktop program built by 
 - offers **mobile modules** so people can record costs and warehouse activity where they happen (port, warehouse, on the road)
 
 
+### The shipment, end to end
+
+```mermaid
+flowchart LR
+  A[BL arrives<br/>containers, rates] --> B[Port<br/>port and shipping-line costs]
+  B --> C[Warehouse<br/>storage accrues per m² per day]
+  C --> D[Departures to Bolivia<br/>one truck at a time, partial]
+  D --> E[Freight to Santa Cruz]
+  E --> F[Cost and billing summary<br/>per departure]
+  D -. leftover units .-> C
+```
+
+![v0 home: what needs doing today, goods in the warehouse, exchange rates](images/v0-home.png)
+*v0 home: what needs doing today, goods in the warehouse and the day’s exchange rates.*
+
+*Screenshots of the v0 use the demo data rebuilt from two real shipments. Client, supplier, people and container identifiers are replaced with fake ones; legacy screenshots have them covered.*
+
 ---
 
 ## 2. Problems to solve
@@ -113,6 +130,10 @@ Mobile screens are **focused task flows**, not shrunken desktop screens. They're
 | MOB-8 | **Client tracking** *(phase 2)* | Clients | Status of their shipments, balances in the warehouse, summaries | C |
 | MOB-9 | **Weak signal** | The Port Agent, warehouse | Save entries on the phone when the signal is poor and upload them later | C |
 
+<p float="left"><img src="images/v0-mobile-home.png" width="260" alt="Mobile home"> <img src="images/v0-mobile-port-cost.png" width="260" alt="Mobile port cost form"></p>
+
+*v0 mobile modules: home and the port-cost form that replaces the CF1 spreadsheet (MOB-1).*
+
 ---
 
 ## 6. Legacy → new mapping
@@ -141,6 +162,10 @@ Every screen seen in the demo, what it does today, and where it goes in the new 
 - **New:** sidebar navigation (desktop) or bottom bar (mobile): *BLs · Bodega · Despachos · Reportes · Tipos de cambio · Mantención*.
 
 ### 6.2 BL list — `bls`
+
+| Legacy | v0 |
+|---|---|
+| ![Legacy BL list](images/legacy-bl-list.png) | ![v0 BL list](images/v0-bl-list.png) |
 - **Today:** grid of open BLs (Nro., BL, Detalle, Cliente, Nro. Ingreso, Fecha); filter; "Mostrar todos (histórico)"; buttons Nuevo, Actualizar, Elimina, Contenedor, O.Despacho, Excel, Procesar BL.
 - **New:** searchable list with status chips (*En bodega*, *Parcialmente despachado*, *Despachado*, *Cerrado*); Excel export; tap to open the BL.
 
@@ -153,6 +178,10 @@ Every screen seen in the demo, what it does today, and where it goes in the new 
 - **New:** the same, plus **m² per container**, **decimal quantities**, and a balance updated automatically by each partial departure (§8).
 
 ### 6.5 BL editor (process BL)
+
+| Legacy | v0 |
+|---|---|
+| ![Legacy BL editor](images/legacy-bl-editor.png) | ![v0 BL page](images/v0-bl-detail.png) |
 - **Today:** BL header plus 8 section buttons (Recepción puerto, Bodega/descarga/carga, Gastos despacho, Demurrage, Fletes Santa Cruz, Impuestos Bolivia, Gastos ingreso Bolivia, Kardex contenedor) and 2 print buttons.
 - **New:** a BL detail page with the same 8 sections as tabs, a **balance panel** (units and m² still in the warehouse per container), and the list of dispatch operations with their summaries.
 
@@ -173,6 +202,8 @@ Every screen seen in the demo, what it does today, and where it goes in the new 
 - **New:** each loading record is linked to a **partial departure** (MOB-4), so loading, storage end date and balances update together.
 
 ### 6.10 Dispatch costs — `gdespach1`
+
+![v0: new departure, choosing what leaves on the truck](images/v0-partial-dispatch.png)
 - **Today:** dispatch operations per BL (date, type, detail, CIF value, transferred value, provisioned cobro, total USD). A partial dispatch moved 75,982.50 of 113,122.23 CIF `[15:36–16:42]`.
 - **New:** a BL has **any number of dispatch operations**. Each one records containers and units leaving, transferred value, and the Customs Coordinator's costs. Each dispatch gets its own summaries (§8, §11).
 
@@ -184,6 +215,12 @@ Every screen seen in the demo, what it does today, and where it goes in the new 
 Demurrage · Impuestos pagados en Bolivia · Gastos de ingreso en Bolivia · Kardex movimiento contenedor · O.Despacho button · Informes menu · Mantención menu · Clientes / Proveedores / Centro de costo. These are in scope; their fields come from a follow-up demo or the legacy data (Q4, Q5).
 
 ### 6.13 Summaries — `blsingreso3`, `resumcosto.frx`
+
+| Legacy billing summary | v0 billing |
+|---|---|
+| ![Legacy billing summary](images/legacy-billing-summary.png) | ![v0 billing](images/v0-billing.png) |
+
+Same BL, same totals: 1,859.47 billing and 1,643.21 cost.
 - **Today:** choose a dispatch operation → print the cost summary or billing summary (sections in USD, freight in BOB, totals) `[17:38–18:36]`.
 - **New:** the same layout (§11), viewable on web and mobile, exported to PDF, one per dispatch operation. Rates and sources are printed in the header.
 
@@ -318,6 +355,8 @@ All rules were checked against numbers on screen (details in [discovery-findings
 ---
 
 ## 10. Currencies and exchange rates
+
+![v0 exchange rates: each source, its trend and its date](images/v0-exchange-rates.png)
 
 ### 10.1 What the legacy system does
 Each BL holds rates typed in by hand: **USD/CLP** (925.25, 916.97), **UF value** (40,844.79, 40,820.31) and **USD/BOB** (10.00, 11.00) [Confirmed, screens]. The Ops Lead calls the USD rate the **"dólar aduanero"**, fixed for the whole month `[02:44–02:54]`, `[07:31–07:56]`. The BOB rate is "a reference" for freight agreed in bolivianos `[27:50–28:30]`. Nothing records which source a rate came from.
